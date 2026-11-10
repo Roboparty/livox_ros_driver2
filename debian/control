@@ -1,0 +1,27 @@
+Source: livox-ros-driver2
+Section: misc
+Priority: optional
+Maintainer: wentywenty <2321901849@qq.com>
+Build-Depends: debhelper-compat (= 13), cmake, pkg-config, ccache,
+               python3-colcon-common-extensions, livox-sdk2-dev,
+               libpcl-dev, libapr1-dev,
+               ros-jazzy-ament-cmake-auto, ros-jazzy-rclcpp,
+               ros-jazzy-rclcpp-components, ros-jazzy-std-msgs,
+               ros-jazzy-sensor-msgs, ros-jazzy-rcl-interfaces,
+               ros-jazzy-rcutils, ros-jazzy-pcl-conversions,
+               ros-jazzy-rosbag2, ros-jazzy-rosidl-default-generators,
+               ros-jazzy-rosidl-default-runtime
+Standards-Version: 4.6.0
+
+Package: livox-ros-driver2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, livox-sdk2,
+         ros-jazzy-rclcpp, ros-jazzy-rclcpp-components,
+         ros-jazzy-std-msgs, ros-jazzy-sensor-msgs,
+         ros-jazzy-rcl-interfaces, ros-jazzy-rcutils,
+         ros-jazzy-pcl-conversions, ros-jazzy-rosbag2,
+         ros-jazzy-rosidl-default-runtime
+Description: Livox ROS Driver 2 for RoboParty
+ Official Livox ROS 2 driver, built for ROS 2 Jazzy and installed under
+ the configured install prefix (default /opt/roboparty) for the RoboParty
+ lidar integration.

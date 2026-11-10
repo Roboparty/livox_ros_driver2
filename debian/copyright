@@ -1,0 +1,7 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: livox_ros_driver2
+Source: https://github.com/Livox-SDK/livox_ros_driver2
+
+Files: *
+Copyright: 2022 Livox
+License: MIT

@@ -1,0 +1,57 @@
+#!/usr/bin/make -f
+
+INSTALL_PREFIX ?= /opt/roboparty
+export DH_VERBOSE = 1
+export DEB_BUILD_MAINT_OPTIONS = optimize=-lto
+ROS_DISTRO ?= jazzy
+ROS_SETUP ?= /opt/ros/$(ROS_DISTRO)
+export ROS_DISTRO
+export ROS_SETUP
+export AMENT_PREFIX_PATH = $(ROS_SETUP)
+export CMAKE_PREFIX_PATH = $(ROS_SETUP):/usr
+export LD_LIBRARY_PATH := $(ROS_SETUP)/lib:$(LD_LIBRARY_PATH)
+export CCACHE_DISABLE = 1
+
+JOBS := $(shell nproc)
+PKG_NAME = livox-ros-driver2
+STAGE := $(CURDIR)/build/stage$(INSTALL_PREFIX)
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	cp -f package_ROS2.xml package.xml
+	. $(ROS_SETUP)/setup.sh && colcon build \
+		--base-paths . \
+		--packages-select livox_ros_driver2 \
+		--build-base build/colcon \
+		--install-base "$(STAGE)" \
+		--merge-install \
+		--cmake-args \
+			-DROS_EDITION=ROS2 \
+			-DDISTRO_ROS=$(ROS_DISTRO) \
+			-DCMAKE_PREFIX_PATH="$(ROS_SETUP):/usr" \
+			-DCMAKE_INCLUDE_PATH=/usr/include
+
+override_dh_auto_build:
+	@true
+
+override_dh_auto_test:
+	@true
+
+override_dh_auto_install:
+	# Drop colcon's shared-prefix environment scripts: $(INSTALL_PREFIX)/setup.bash
+	# is owned by roboparty-base, and its setup.bash already exports
+	# AMENT_PREFIX_PATH and sources share/*/local_setup.bash.
+	rm -f build/stage$(INSTALL_PREFIX)/setup.* \
+		build/stage$(INSTALL_PREFIX)/local_setup.* \
+		build/stage$(INSTALL_PREFIX)/_local_setup_util_*.py
+	install -d debian/$(PKG_NAME)$(INSTALL_PREFIX)
+	cp -a build/stage$(INSTALL_PREFIX)/. debian/$(PKG_NAME)$(INSTALL_PREFIX)/
+
+override_dh_auto_clean:
+	rm -rf build log
+	rm -f package.xml
+
+override_dh_shlibdeps:
+	dh_shlibdeps -- -l$(CURDIR)/build/stage$(INSTALL_PREFIX)/lib --ignore-missing-info

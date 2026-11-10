@@ -1,4 +1,15 @@
 .vscode
-build
+build/
+log/
 package.xml
-__pycache__
+__pycache__/
+debian/tmp/
+debian/livox-ros-driver2/
+debian/files
+debian/*.substvars
+debian/*.debhelper*
+debian/debhelper-build-stamp
+*.deb
+*.changes
+*.buildinfo
+obj-*/
