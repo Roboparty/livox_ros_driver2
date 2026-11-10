@@ -59,6 +59,7 @@ jobs:
 
       - name: Build and install Livox SDK2
         run: |
+          rm -rf /tmp/Livox-SDK2
           git clone --depth 1 https://github.com/Roboparty/Livox-SDK2.git /tmp/Livox-SDK2
           cd /tmp/Livox-SDK2
           dpkg-buildpackage -us -uc -b
