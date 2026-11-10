@@ -1,6 +1,6 @@
-livox-ros-driver2 (1.2.6-1) stable; urgency=medium
+livox-ros-driver2 (1.2.8-1) stable; urgency=medium
 
   * Package the official Livox ROS Driver 2 for ROS 2 Jazzy.
   * Install under the configured install prefix (default /opt/roboparty) for RoboParty lidar integration.
 
- -- wentywenty <2321901849@qq.com>  Thu, 06 Nov 2026 12:00:00 +0800
+ -- wentywenty <2321901849@qq.com>  Tue, 10 Nov 2026 12:00:00 +0800
